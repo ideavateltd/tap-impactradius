@@ -3,7 +3,7 @@
 from setuptools import setup
 
 setup(name='tap-impactradius',
-      version='0.0.3',
+      version='0.1.0',
       description='Singer.io tap for extracting data from api.impactradius.com',
       author='Onedox',
       url='https://github.com/onedox/tap-impactradius',

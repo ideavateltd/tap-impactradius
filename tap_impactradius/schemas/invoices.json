@@ -63,7 +63,7 @@
             "format": "date-time"
           },
           "PaidDate": {
-            "type": ["string"],
+            "type": ["string", "null"],
             "format": "date-time"
           }
         }

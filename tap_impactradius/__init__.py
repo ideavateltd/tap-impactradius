@@ -46,6 +46,10 @@ def map_types(schema, input):
         return input
 
     if inputType == "string":
+        if "format" in schema and schema["format"] == "date-time":
+            if input == "":
+                return None
+            return dateparser.parse(input).isoformat()
         return input
     elif inputType == "integer":
         if input == "":
@@ -55,6 +59,10 @@ def map_types(schema, input):
         if input == "":
             return None
         return float(input)
+    elif inputType == "boolean":
+        if input == "":
+            return None
+        return bool(input)
     elif inputType == "object":
         output = {}
         for k,v in schema['properties'].items():
@@ -84,8 +92,6 @@ def sync_type(type, endpoint, replicationKey, useValidationWindow):
     auth = HTTPBasicAuth(CONFIG['account_sid'], CONFIG['auth_token'])
 
     while nextpageuri != "":
-        LOGGER.info(nextpageuri)
-
         req = requests.Request("GET", url=f"{BASE_HOST}{nextpageuri}", headers=headers, auth=auth).prepare()
         resp = SESSION.send(req)
         resp.raise_for_status()
